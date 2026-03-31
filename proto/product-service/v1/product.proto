@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package product.v1;
+
+option go_package = "github.com/kurnhyalcantara/koer-base-protobuf/gen/go/product-service/v1;productv1";
+
+// ProductService defines product-related operations.
+service ProductService {
+  // GetProduct retrieves a specific product by its ID.
+  rpc GetProduct(GetProductRequest) returns (ProductResponse) {}
+  
+  // ListProducts retrieves a paginated list of products.
+  rpc ListProducts(ListProductsRequest) returns (ListProductsResponse) {}
+}
+
+// Product represents a single e-commerce product.
+message Product {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+}
+
+// GetProductRequest is the request type for GetProduct method.
+message GetProductRequest {
+  string id = 1;
+}
+
+// ProductResponse is the response wrapper for a single product.
+message ProductResponse {
+  Product product = 1;
+}
+
+// ListProductsRequest encompasses parameters to perform pagination listing.
+message ListProductsRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+// ListProductsResponse contains the sequence of products matching the request.
+message ListProductsResponse {
+  repeated Product products = 1;
+  string next_page_token = 2;
+}

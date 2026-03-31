@@ -1,0 +1,42 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  validate-protobufs:
+    name: Validate Protobuf Generation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          check-latest: true
+
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v3
+        with:
+          version: '25.3'
+
+      - name: Install Go Protobuf Plugins
+        run: make deps
+
+      - name: Run Code Generation
+        run: |
+          chmod +x scripts/generate.sh
+          make generate
+
+      - name: Verify Clean Workspace (Did you run make generate?)
+        run: |
+          git diff --exit-code || (echo "ERROR: Generated files are out of sync with .proto files. Please run 'make generate' locally and commit the changes." && exit 1)
+
+      - name: Verify Module compilation
+        run: make check

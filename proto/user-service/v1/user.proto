@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package user.v1;
+
+option go_package = "github.com/kurnhyalcantara/koer-base-protobuf/gen/go/user-service/v1;userv1";
+
+// UserService provides user management functionalities.
+service UserService {
+  // GetUser retrieves a user by their ID.
+  rpc GetUser(GetUserRequest) returns (UserResponse) {}
+  
+  // CreateUser creates a new user.
+  rpc CreateUser(CreateUserRequest) returns (UserResponse) {}
+}
+
+// User represents a user entity.
+message User {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+}
+
+// GetUserRequest is the request payload to get a user.
+message GetUserRequest {
+  string id = 1;
+}
+
+// CreateUserRequest is the request payload to create a user.
+message CreateUserRequest {
+  string email = 1;
+  string name = 2;
+  string password = 3;
+}
+
+// UserResponse is the response payload containing a user object.
+message UserResponse {
+  User user = 1;
+}
