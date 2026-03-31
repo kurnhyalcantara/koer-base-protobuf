@@ -8,7 +8,7 @@ option go_package = "github.com/kurnhyalcantara/koer-base-protobuf/gen/go/user-s
 service UserService {
   // GetUser retrieves a user by their ID.
   rpc GetUser(GetUserRequest) returns (UserResponse) {}
-  
+
   // CreateUser creates a new user.
   rpc CreateUser(CreateUserRequest) returns (UserResponse) {}
 }
