@@ -7,10 +7,10 @@ option go_package = "github.com/kurnhyalcantara/koer-base-protobuf/gen/go/user-s
 // UserService provides user management functionalities.
 service UserService {
   // GetUser retrieves a user by their ID.
-  rpc GetUser(GetUserRequest) returns (UserResponse) {}
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
 
   // CreateUser creates a new user.
-  rpc CreateUser(CreateUserRequest) returns (UserResponse) {}
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 }
 
 // User represents a user entity.
@@ -32,7 +32,12 @@ message CreateUserRequest {
   string password = 3;
 }
 
-// UserResponse is the response payload containing a user object.
-message UserResponse {
+// GetUserResponse is the response payload containing a user object.
+message GetUserResponse {
+  User user = 1;
+}
+
+// CreateUserResponse is the response payload containing a user object.
+message CreateUserResponse {
   User user = 1;
 }
