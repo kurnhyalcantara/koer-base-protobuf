@@ -1,19 +1,26 @@
-.PHONY: generate clean deps check
-
-SERVICES = user-service auth-service product-service
+.PHONY: generate clean deps check lint format
 
 # Install standard protocol buffer dependencies
 deps:
 	@echo "Installing Go protocol buffer plugins..."
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-	@echo "Dependencies installed."
+	@echo "Dependencies installed. Ensure you have 'buf' installed system-wide (e.g., brew install buf)."
 
-# Generate code for all services
+# Generate code using Buf
 generate:
-	@echo "Generating protobuf files..."
-	chmod +x scripts/generate.sh
-	./scripts/generate.sh $(SERVICES)
+	@echo "Generating protobuf files with Buf..."
+	buf generate
+
+# Format proto files
+format:
+	@echo "Formatting proto files..."
+	buf format -w
+
+# Lint proto files
+lint:
+	@echo "Linting proto files..."
+	buf lint
 
 # Clean all generated files
 clean:

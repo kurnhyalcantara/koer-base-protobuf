@@ -7,8 +7,8 @@ option go_package = "github.com/kurnhyalcantara/koer-base-protobuf/gen/go/produc
 // ProductService defines product-related operations.
 service ProductService {
   // GetProduct retrieves a specific product by its ID.
-  rpc GetProduct(GetProductRequest) returns (ProductResponse) {}
-  
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse) {}
+
   // ListProducts retrieves a paginated list of products.
   rpc ListProducts(ListProductsRequest) returns (ListProductsResponse) {}
 }
@@ -26,8 +26,8 @@ message GetProductRequest {
   string id = 1;
 }
 
-// ProductResponse is the response wrapper for a single product.
-message ProductResponse {
+// GetProductResponse is the response wrapper for a single product.
+message GetProductResponse {
   Product product = 1;
 }
 
